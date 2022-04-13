@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart'; //to use firebas_auth we need this
 
 void main() async{
-  // next two lines are needed to use firebas_auth
+  // next two lines are needed to use firebase_auth
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
