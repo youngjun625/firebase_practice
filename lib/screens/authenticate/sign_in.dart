@@ -1,3 +1,4 @@
+import 'package:firebase/models/user.dart';
 import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _SignInState extends State<SignIn> {
               print("error signing in");
             } else {
               print("signed in");
-              print(result);
+              print(result.uid);
             }
           }
         ),
