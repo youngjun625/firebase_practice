@@ -12,7 +12,16 @@ class AuthService{
   } 
   //created a MyUser instance with uid from (firebase) User class
 
- 
+  // auth change user stream
+  Stream<MyUser?> get my_user{ //were setting up a stream were we 'get' <MyUser> data back
+    return _auth.authStateChanges()
+    //.map((User? my_user) => _userFromFirebase(my_user)); this functions the same as below
+    .map (_userFromFirebase);
+  } 
+  // authStateChanges() will retun me a User data, when authstate changes, 
+  // I map the returned User data into MyUser data which only contains the info i need
+  
+  //sign in anon
   Future signInAnon() async {
     try{
       UserCredential result= await _auth.signInAnonymously();
