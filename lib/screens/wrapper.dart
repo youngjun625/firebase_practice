@@ -17,7 +17,12 @@ class Wrapper extends StatelessWidget {
     
     //depending on authentication state, do i go to sign in page? or home page?
     // we're gonna be using stream
-    return Authenticate();
+    if (user == null) {
+      return Authenticate();
+    }
+    else{
+      return Home();
+    }
   
   }
 }

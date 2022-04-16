@@ -38,6 +38,16 @@ class AuthService{
 
   // register with email and pw
 
-  // sign out
+  // sign out //todo signout method
+  Future signOut() async{
+    try{
+      return await _auth.signOut();
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+    }
+
+  }
 
 }
