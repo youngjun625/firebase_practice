@@ -13,7 +13,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<MyUser?>(context);
-    print('hi + $user');
+    print('UserState: $user');
     
     //depending on authentication state, do i go to sign in page? or home page?
     // we're gonna be using stream

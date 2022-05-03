@@ -3,7 +3,7 @@ import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-  //todo constructor always takes place inside the widget itself, not the state object
+  // constructor always takes place inside the widget itself, not the state object
   final toggleView;
   const SignIn({ Key? key, this.toggleView}) : super(key: key);
 
@@ -26,14 +26,17 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.brown[400],
         elevation: 0,
         title: Text("Sign in to Brew Crew"),
-        //todo L11
+        // L11
         actions: [
           TextButton.icon(
             onPressed: () {
               Navigator.pushNamed(context, '/register');
             }, 
-            icon: Icon(Icons.person),
-            label: Text("Register"),
+            icon: Icon(Icons.person,
+              color: Colors.white ),
+            label: Text("Register",
+              style: TextStyle(color: Colors.white),
+              ),
             )
         ],
       ),

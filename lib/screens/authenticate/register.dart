@@ -12,9 +12,12 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
+  //todo L12
+  final _formKey = GlobalKey<FormState>();
 
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +31,12 @@ class _RegisterState extends State<Register> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
         child: Form(
+          key: _formKey, //todo keeps track of form and state of it. needed to validation
           child: Column(
             children: [
               SizedBox(height: 20),
               TextFormField(
+                validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) { //this functions runs everytime there is a change, type, etc
                   setState(() {
                     email = value;
@@ -41,6 +46,7 @@ class _RegisterState extends State<Register> {
               SizedBox(height: 20),
               TextFormField( 
                 obscureText: true,
+                validator: (value) => value!.length < 6 ? 'Enter a password 6+ long' : null, //todo validaotr is VALID if NULL
                 onChanged: (value) {
                   setState(() {
                     password = value;
@@ -49,9 +55,18 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () async {
-                  print(email);
-                  print(password);
+                onPressed: () async { 
+                  if(_formKey.currentState!.validate()){ //todo if ALL validators are NULL, then it will return true
+                    dynamic result = await _auth.registerWithEmailAndPw(email, password);
+                    if(result == null){
+                      setState(() {
+                        error = "please supply a valid email";
+                      });
+                    }
+                    else{ //todo popping register form to show home page
+                      Navigator.pop(context);
+                    }
+                  }
                 }, 
                 style: ElevatedButton.styleFrom(
                   primary: Colors.pink[400]),
@@ -59,7 +74,10 @@ class _RegisterState extends State<Register> {
                   'Register',
                   style: TextStyle(color: Colors.white),
                 ) 
-              )
+              ),
+              SizedBox(height: 12),
+              Text(error,
+              style: TextStyle(color: Colors.red, fontSize:14),)
             ],
           ),)
       ),
