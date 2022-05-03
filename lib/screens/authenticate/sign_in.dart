@@ -3,7 +3,9 @@ import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({ Key? key }) : super(key: key);
+  //todo constructor always takes place inside the widget itself, not the state object
+  final toggleView;
+  const SignIn({ Key? key, this.toggleView}) : super(key: key);
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -12,7 +14,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
-  //todocreate variables to store what is typed in
+  //create variables to store what is typed in
   String email = '';
   String password = '';
 
@@ -24,6 +26,16 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.brown[400],
         elevation: 0,
         title: Text("Sign in to Brew Crew"),
+        //todo L11
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              Navigator.pushNamed(context, '/register');
+            }, 
+            icon: Icon(Icons.person),
+            label: Text("Register"),
+            )
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),

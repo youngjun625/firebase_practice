@@ -1,4 +1,6 @@
 import 'package:firebase/models/user.dart';
+import 'package:firebase/screens/authenticate/register.dart';
+import 'package:firebase/screens/authenticate/sign_in.dart';
 import 'package:firebase/screens/wrapper.dart';
 import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,12 @@ class MyApp extends StatelessWidget {
       // 2) I'm listening to the my_user instance for authentication changes
       initialData: null, // required
       child: MaterialApp(
+        routes:{
+      '/sign_in': (context) => SignIn(), //this is the first screen to load up as default
+      '/register': (context) => Register(),
+      //remember (context) is passed in to the route function
+      //also routing is STACKED
+    },
         home: Wrapper(),
       ),
     );

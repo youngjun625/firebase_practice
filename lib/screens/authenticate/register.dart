@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase/services/auth.dart';
 
 class Register extends StatefulWidget {
+
   const Register({ Key? key }) : super(key: key);
 
   @override
@@ -14,7 +15,7 @@ class _RegisterState extends State<Register> {
 
   String email = '';
   String password = '';
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
