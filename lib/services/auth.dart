@@ -38,7 +38,7 @@ class AuthService{
 
   // register with email and pw
 
-  // sign out //todo signout method
+  // sign out 
   Future signOut() async{
     try{
       return await _auth.signOut();
