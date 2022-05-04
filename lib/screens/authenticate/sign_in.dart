@@ -1,5 +1,6 @@
 import 'package:firebase/models/user.dart';
 import 'package:firebase/services/auth.dart';
+import 'package:firebase/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -14,7 +15,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>(); //todo L13
+  final _formKey = GlobalKey<FormState>(); // L13
 
   //create variables to store what is typed in
   String email = '';
@@ -51,6 +52,7 @@ class _SignInState extends State<SignIn> {
             children: [
               SizedBox(height: 20),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: "Email"),
                 validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) { //this functions runs everytime there is a change, type, etc
                   setState(() {
@@ -60,6 +62,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20),
               TextFormField( 
+                decoration: textInputDecoration.copyWith(hintText: "Password"),
                 validator: (value) => value!.length < 6 ? 'Enter a password 6+ long' : null,
                 obscureText: true,
                 onChanged: (value) {
@@ -70,7 +73,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () async { //todo sign in with email and pw
+                onPressed: () async { // sign in with email and pw
                   if(_formKey.currentState!.validate()){ // if ALL validators are NULL, then it will return true
                     dynamic result = await _auth.signInWithEmailAndPw(email, password);
                     if(result == null){

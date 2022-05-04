@@ -1,3 +1,4 @@
+import 'package:firebase/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/services/auth.dart';
 
@@ -36,6 +37,8 @@ class _RegisterState extends State<Register> {
             children: [
               SizedBox(height: 20),
               TextFormField(
+                //todo L14 hint texts, what to type?
+                decoration: textInputDecoration.copyWith(hintText: "Email"), //copies the entire constant but passes a parameter with it!
                 validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) { //this functions runs everytime there is a change, type, etc
                   setState(() {
@@ -45,6 +48,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20),
               TextFormField( 
+                decoration: textInputDecoration.copyWith(hintText: "Password"),
                 obscureText: true,
                 validator: (value) => value!.length < 6 ? 'Enter a password 6+ long' : null, // validaotr is VALID if NULL
                 onChanged: (value) {
