@@ -12,7 +12,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
-  //todo L12
+  // L12
   final _formKey = GlobalKey<FormState>();
 
   String email = '';
@@ -31,7 +31,7 @@ class _RegisterState extends State<Register> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
         child: Form(
-          key: _formKey, //todo keeps track of form and state of it. needed to validation
+          key: _formKey, // keeps track of form and state of it. needed to validation
           child: Column(
             children: [
               SizedBox(height: 20),
@@ -46,7 +46,7 @@ class _RegisterState extends State<Register> {
               SizedBox(height: 20),
               TextFormField( 
                 obscureText: true,
-                validator: (value) => value!.length < 6 ? 'Enter a password 6+ long' : null, //todo validaotr is VALID if NULL
+                validator: (value) => value!.length < 6 ? 'Enter a password 6+ long' : null, // validaotr is VALID if NULL
                 onChanged: (value) {
                   setState(() {
                     password = value;
@@ -54,16 +54,16 @@ class _RegisterState extends State<Register> {
                 },
               ),
               SizedBox(height: 20),
-              ElevatedButton(
+              ElevatedButton( 
                 onPressed: () async { 
-                  if(_formKey.currentState!.validate()){ //todo if ALL validators are NULL, then it will return true
+                  if(_formKey.currentState!.validate()){ // if ALL validators are NULL, then it will return true
                     dynamic result = await _auth.registerWithEmailAndPw(email, password);
                     if(result == null){
                       setState(() {
                         error = "please supply a valid email";
                       });
                     }
-                    else{ //todo popping register form to show home page
+                    else{ // popping register form to show home page
                       Navigator.pop(context);
                     }
                   }

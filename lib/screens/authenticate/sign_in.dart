@@ -14,9 +14,12 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>(); //todo L13
+
   //create variables to store what is typed in
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class _SignInState extends State<SignIn> {
               Navigator.pushNamed(context, '/register');
             }, 
             icon: Icon(Icons.person,
-              color: Colors.white ),
+              color: Color.fromARGB(255, 35, 34, 34) ),
             label: Text("Register",
               style: TextStyle(color: Colors.white),
               ),
@@ -43,10 +46,12 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(height: 20),
               TextFormField(
+                validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) { //this functions runs everytime there is a change, type, etc
                   setState(() {
                     email = value;
@@ -55,6 +60,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20),
               TextFormField( 
+                validator: (value) => value!.length < 6 ? 'Enter a password 6+ long' : null,
                 obscureText: true,
                 onChanged: (value) {
                   setState(() {
@@ -64,9 +70,15 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () async {
-                  print(email);
-                  print(password);
+                onPressed: () async { //todo sign in with email and pw
+                  if(_formKey.currentState!.validate()){ // if ALL validators are NULL, then it will return true
+                    dynamic result = await _auth.signInWithEmailAndPw(email, password);
+                    if(result == null){
+                      setState(() {
+                        error = "Failed to Log In";
+                      });
+                    }
+                  }
                 }, 
                 style: ElevatedButton.styleFrom(
                   primary: Colors.pink[400]),
@@ -74,7 +86,10 @@ class _SignInState extends State<SignIn> {
                   'Sign In',
                   style: TextStyle(color: Colors.white),
                 ) 
-              )
+              ),
+              SizedBox(height: 12),
+              Text(error,
+              style: TextStyle(color: Colors.red, fontSize:14),)
             ],
           ),)
       ),
