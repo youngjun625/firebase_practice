@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-//todo L15
+// L15
 class Loading extends StatelessWidget {
   const Loading({ Key? key }) : super(key: key);
 
