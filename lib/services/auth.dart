@@ -34,7 +34,7 @@ class AuthService{
     }
   }
 
-  // sign in with email and pw //todo L13 sign in
+  // sign in with email and pw //L13 sign in
   Future signInWithEmailAndPw(String email, String password) async{
     try { //creating email and password user
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);

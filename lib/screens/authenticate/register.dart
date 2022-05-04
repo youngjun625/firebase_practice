@@ -1,4 +1,5 @@
 import 'package:firebase/shared/constants.dart';
+import 'package:firebase/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/services/auth.dart';
 
@@ -15,6 +16,7 @@ class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   // L12
   final _formKey = GlobalKey<FormState>();
+  bool loading = false; //todo L15
 
   String email = '';
   String password = '';
@@ -22,7 +24,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -37,7 +39,7 @@ class _RegisterState extends State<Register> {
             children: [
               SizedBox(height: 20),
               TextFormField(
-                //todo L14 hint texts, what to type?
+                // L14 hint texts, what to type
                 decoration: textInputDecoration.copyWith(hintText: "Email"), //copies the entire constant but passes a parameter with it!
                 validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) { //this functions runs everytime there is a change, type, etc
@@ -61,10 +63,14 @@ class _RegisterState extends State<Register> {
               ElevatedButton( 
                 onPressed: () async { 
                   if(_formKey.currentState!.validate()){ // if ALL validators are NULL, then it will return true
+                    setState(() {
+                      loading = true;
+                    });
                     dynamic result = await _auth.registerWithEmailAndPw(email, password);
                     if(result == null){
                       setState(() {
                         error = "please supply a valid email";
+                        loading = false;
                       });
                     }
                     else{ // popping register form to show home page

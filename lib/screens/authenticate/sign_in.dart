@@ -1,6 +1,7 @@
 import 'package:firebase/models/user.dart';
 import 'package:firebase/services/auth.dart';
 import 'package:firebase/shared/constants.dart';
+import 'package:firebase/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -16,6 +17,8 @@ class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); // L13
+  //todo L15
+  bool loading = false;
 
   //create variables to store what is typed in
   String email = '';
@@ -24,7 +27,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    //todo if loading is true, we show Loading widget. if false, returns scaffold
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -75,10 +79,14 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () async { // sign in with email and pw
                   if(_formKey.currentState!.validate()){ // if ALL validators are NULL, then it will return true
+                    setState(() { //todo always use setState whenever a prameters are chenaged
+                     loading = true;  //todo setState method reads the change in parameters and build the widget again Line29
+                    });
                     dynamic result = await _auth.signInWithEmailAndPw(email, password);
                     if(result == null){
                       setState(() {
                         error = "Failed to Log In";
+                        loading = false; //todo we dont want the loading screen again
                       });
                     }
                   }
