@@ -49,7 +49,14 @@ class Home extends StatelessWidget {
               )
           ], //  buttons appear on right of the app bar
         ),
-        body: BrewList(),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/coffee_bg.png'), //todo L27 
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: BrewList()),
       ),
     );
   }

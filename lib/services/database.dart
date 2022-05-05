@@ -11,6 +11,7 @@ class DatabaseService {
   final CollectionReference brewCollection = FirebaseFirestore.instance.collection('brews');
   //will automatically create 'brews' collection in firestore
 
+  //todo L26 
   Future updateUserData(String sugars, String name, int strength) async{
     return await brewCollection.doc(uid).set({
       'sugars': sugars,
