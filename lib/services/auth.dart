@@ -27,6 +27,7 @@ class AuthService{
     try{
       UserCredential result= await _auth.signInAnonymously();
       User? my_user = result.user;
+      print("UID: ${my_user?.uid}");
       return _userFromFirebase(my_user);
     }
     catch(e){
@@ -40,6 +41,7 @@ class AuthService{
     try { //creating email and password user
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? my_user = result.user;
+      print("UID: ${my_user?.uid}");
       return _userFromFirebase(my_user);
     } catch(e){ 
         print(e.toString());
@@ -52,7 +54,7 @@ class AuthService{
     try { //creating email and password user
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password) ;
       User? my_user = result.user;
-
+      print("UID: ${my_user?.uid}");
       //create a new document for the user with this uid
       await DatabaseService(uid: my_user!.uid).updateUserData('0', 'new crew member', 100);
       return _userFromFirebase(my_user);
