@@ -1,5 +1,5 @@
 class Brew{
-//TODO L19 Class for creating objects with the folloiwing parameters received from firestore
+//  L19 Class for creating objects with the folloiwing parameters received from firestore
   final String name;
   final String sugars;
   final int strength;
