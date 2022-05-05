@@ -24,14 +24,14 @@ class _SettingsFormState extends State<SettingsForm> {
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<MyUser?>(context); //todo we first get a user model to know the uid of THIS user
+    final user = Provider.of<MyUser?>(context); //we first get a user model to know the uid of THIS user
 
-    //todo :25
-    return StreamBuilder<MyUserData>( //todo when we need to listen to streams changes in just a single widget, we can use built in StreamBuilder method instead of the Provider package
-      //todo we are getting back a MyUserData object back whenever stream detects change
-      stream: DatabaseService(uid: user!.uid).userData, //todo this is a userData Stream from database.dart that returns MyUserData 
+    // :25
+    return StreamBuilder<MyUserData>( //when we need to listen to streams changes in just a single widget, we can use built in StreamBuilder method instead of the Provider package
+      // we are getting back a MyUserData object back whenever stream detects change
+      stream: DatabaseService(uid: user!.uid).userData, // this is a userData Stream from database.dart that returns MyUserData 
       builder: (context, snapshot) {
-        if(snapshot.hasData){ //todo if check to make sure snapshot is not null
+        if(snapshot.hasData){ // if check to make sure snapshot is not null
           
           MyUserData? myUserData = snapshot.data;
 
@@ -82,9 +82,13 @@ class _SettingsFormState extends State<SettingsForm> {
               SizedBox(height: 20),
               ElevatedButton( 
                 onPressed: () async {
-                  print("name: $_currentName");
-                  print("sugars: $_currentSugars");
-                  print("strength: $_currentStrength");
+                  if(_formKey.currentState!.validate()) {
+                    await DatabaseService(uid: myUserData.uid).updateUserData(
+                      _currentSugars?? myUserData.sugars, 
+                      _currentName ?? myUserData.name,  //todo if left = null '??' provides right value
+                      _currentStrength ?? myUserData.strength); //todo if _current is not changed, we update NULL value, therefore we update a fallback value which is original value.
+                  }
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.pink[400]),
