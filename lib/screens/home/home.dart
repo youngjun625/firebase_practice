@@ -1,6 +1,7 @@
 
 import 'package:firebase/models/brew.dart';
 import 'package:firebase/screens/home/brew_list.dart';
+import 'package:firebase/screens/home/settings.form.dart';
 import 'package:firebase/services/auth.dart';
 import 'package:firebase/services/database.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +15,11 @@ class Home extends StatelessWidget {
   
   Widget build(BuildContext context) {
 
-    void _showSettingsPanel(){ //todo bottom sheet function
+    void _showSettingsPanel(){ //  bottom sheet function
     showModalBottomSheet(context: context, builder: (context){
       return Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-        child: Text("bottom Sheet"),
+        child: SettingsForm(),
       );
     });
   }
@@ -39,7 +40,7 @@ class Home extends StatelessWidget {
               icon: Icon(Icons.person),  
               label: Text('logout'),
               ),
-              TextButton.icon( //todo L21 Bottom Sheets
+              TextButton.icon( //  L21 Bottom Sheets
               onPressed: () async{
                 _showSettingsPanel();
               }, 
