@@ -7,12 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
-  Home
-({ Key? key }) : super(key: key);
+  Home ({ Key? key }) : super(key: key);
+  final AuthService _auth = AuthService(); // instance _auth needs to be called file
 
   @override
-  final AuthService _auth = AuthService(); // instance _auth needs to be called file
+  
   Widget build(BuildContext context) {
+
+    void _showSettingsPanel(){ //todo bottom sheet function
+    showModalBottomSheet(context: context, builder: (context){
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+        child: Text("bottom Sheet"),
+      );
+    });
+  }
     return StreamProvider<List<Brew>?>.value(
       initialData: null,
       value: DatabaseService(uid : '').brews,
@@ -29,6 +38,13 @@ class Home extends StatelessWidget {
               }, 
               icon: Icon(Icons.person),  
               label: Text('logout'),
+              ),
+              TextButton.icon( //todo L21 Bottom Sheets
+              onPressed: () async{
+                _showSettingsPanel();
+              }, 
+              icon: Icon(Icons.settings),  
+              label: Text('settings'),
               )
           ], //  buttons appear on right of the app bar
         ),

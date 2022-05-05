@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase/models/brew.dart';
-//todo L20
+//  L20
 class BrewTile extends StatelessWidget {
 
   final Brew brew;
@@ -15,11 +15,11 @@ class BrewTile extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             radius: 25,
-            backgroundColor: Colors.brown[brew.strength], //todo control the color with the integer
+            backgroundColor: Colors.brown[brew.strength], // control the color with the integer
           ),
           title: Text(brew.name),
           subtitle: Text('Takes ${brew.sugars} sugar(s)'),
-        ), //todo search for 'materials' on flutter
+        ), // search for 'materials' on flutter
       )
     );
   }
