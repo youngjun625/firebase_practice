@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/models/brew.dart';
 //L16 setting up database services
 class DatabaseService {
   // L17
   late final String? uid;
-  DatabaseService({this.uid}); //when Database function is called, must need uid parameter to be passed
+  DatabaseService({required this.uid}); //when Database function is called, must need uid parameter to be passed
 
   //collection reference
   final CollectionReference brewCollection = FirebaseFirestore.instance.collection('brews');
@@ -20,10 +21,22 @@ class DatabaseService {
     //notice that the document ID in firestore data base = UID of this user
   }
 
-  //todo L18 get brews stream, setting up database stream
-  Stream<QuerySnapshot?> get brews {
-    return brewCollection.snapshots();
+  //todo brew list from snapshot
+  List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){ //todo maps the Query received by firestore first
+      return Brew(  //todo creates a Brew object with all the datas
+        name: (doc.data() as dynamic)['name'] ?? '',
+        strength: (doc.data() as dynamic)['strength'] ?? 0,
+        sugars: (doc.data() as dynamic)['sugars'] ?? '0',
+      );
+    }).toList(); //todo makes it into list of Brews
+  }
 
+  //get brews stream, setting up database stream
+  Stream<List<Brew>> get brews {
+    return brewCollection.snapshots()
+      .map(_brewListFromSnapshot);
+    //todo we're listening to list of brews coming in. so we need to make changes in home -> streamprovider as well
   }
 
 }
