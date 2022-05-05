@@ -33,7 +33,7 @@ class DatabaseService {
     }).toList(); //  makes it into list of Brews
   }
 
-  //todo userData from firecloud snapshot
+  //    userData from firecloud snapshot
   MyUserData _myUserDataFromSnapshot(DocumentSnapshot snapshot) {
     return MyUserData(
       uid: uid, 
@@ -50,9 +50,9 @@ class DatabaseService {
     //  we're listening to list of brews coming in. so we need to make changes in home -> streamprovider as well
   }
 
-  //todo L 24 get user document stream, setted up name, brew data etc 
+  //    L 24 get user document stream, setted up name, brew data etc 
   Stream<MyUserData> get userData {
-    return brewCollection.doc(uid).snapshots() //todo were getting snapshots of specific document of specific uid
+    return brewCollection.doc(uid).snapshots() //    were getting snapshots of specific document of specific uid
       .map(_myUserDataFromSnapshot); //take dictionary data from firecloud/snapshot and map into _myUser...
   }
 

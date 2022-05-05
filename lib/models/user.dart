@@ -5,7 +5,7 @@ class MyUser {
   MyUser({required this.uid});
 
 }
-//todo creating user DATA class to create objects with firecloud datas
+// creating user DATA class to create objects with firecloud datas
 class MyUserData{
 
   late final String uid;
