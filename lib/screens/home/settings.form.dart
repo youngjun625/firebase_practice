@@ -50,16 +50,16 @@ class _SettingsFormState extends State<SettingsForm> {
               _currentSugars = val.toString();
             }) ),
           SizedBox(height: 20),
-          //slider //todo L23 slider widget!
+          //slider //   L23 slider widget!
           Slider(
-            min: 100, //todo these numbers represent darkness of color
+            min: 100, //   these numbers represent darkness of color
             max: 900,
             divisions: 8,
-            value: (_currentStrength ?? 100).toDouble(), //todo setting up base value. if non null, _current, if null base with 100
+            value: (_currentStrength ?? 100).toDouble(), //   setting up base value. if non null, _current, if null base with 100
             onChanged: (val) => setState(() {
-              _currentStrength = val.round(); //todo val of slider is given as doubles, so we use round to make it as Int type
+              _currentStrength = val.round(); //   val of slider is given as doubles, so we use round to make it as Int type
             }),
-            activeColor: Colors.brown[_currentStrength ?? 100], //todo might be null, so we put a fallback value
+            activeColor: Colors.brown[_currentStrength ?? 100], //   might be null, so we put a fallback value
             inactiveColor: Colors.brown[_currentStrength ?? 100],
             ),
           SizedBox(height: 20),
